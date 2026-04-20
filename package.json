@@ -1,6 +1,6 @@
 {
   "name": "@cardgamesplay/klondike",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Browser-based Klondike Solitaire game built with TypeScript and vanilla DOM. Features drag-and-drop, keyboard navigation, card animations, sound effects, a music player, and i18n support for 16 languages. Play free at https://www.cardgamesplay.com/",
   "license": "MIT",
   "author": "Card Games Play",
@@ -97,7 +97,7 @@
     "prepublishOnly": "npm run build",
     "test": "vitest --run"
   },
-  "sideEffects": false,
+  "sideEffects": true,
   "engines": {
     "node": ">=18"
   },
