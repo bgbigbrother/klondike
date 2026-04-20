@@ -1,4 +1,4 @@
-# @cardgames/klondike
+# @cardgamesplay/klondike
 
 A browser-based Klondike Solitaire game built with TypeScript, Vite, and vanilla DOM — no framework required. Features drag-and-drop, keyboard navigation, card animations, synthesised sound effects, a built-in music player, and full i18n support for 16 languages.
 
