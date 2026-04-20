@@ -2,6 +2,8 @@
 
 A browser-based Klondike Solitaire game built with TypeScript, Vite, and vanilla DOM — no framework required. Features drag-and-drop, keyboard navigation, card animations, synthesised sound effects, a built-in music player, and full i18n support for 16 languages.
 
+**🎮 [Play the live demo at cardgamesplay.com](https://www.cardgamesplay.com/)**
+
 ## Features
 
 - Classic Klondike (Patience) rules with configurable stock-pass limits (∞ / 1 / 3) and a face-up mode
@@ -61,6 +63,8 @@ A browser-based Klondike Solitaire game built with TypeScript, Vite, and vanilla
 ```
 
 ## Getting Started
+
+> Want to just play? Head over to **[cardgamesplay.com](https://www.cardgamesplay.com/)** — no install needed.
 
 ### Prerequisites
 
@@ -156,3 +160,10 @@ To add a new language, duplicate `src/i18n/en.ts`, translate the values, and reg
 ## License
 
 This project is licensed under the [MIT License](./LICENSE.md).
+
+## Links
+
+- **[Play Online](https://www.cardgamesplay.com/)** — free, no sign-up, works on any device
+- [GitHub Repository](https://github.com/bgbigbrother/klondike)
+- [npm Package](https://www.npmjs.com/package/@cardgamesplay/klondike)
+- [Report a Bug](https://github.com/bgbigbrother/klondike/issues)

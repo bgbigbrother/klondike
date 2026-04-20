@@ -1,7 +1,37 @@
 {
-  "name": "@cardgames/klondike",
+  "name": "@cardgamesplay/klondike",
   "version": "0.1.0",
+  "description": "Browser-based Klondike Solitaire game built with TypeScript and vanilla DOM. Features drag-and-drop, keyboard navigation, card animations, sound effects, a music player, and i18n support for 16 languages. Play free at https://www.cardgamesplay.com/",
   "license": "MIT",
+  "author": "Card Games Play",
+  "homepage": "https://www.cardgamesplay.com/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bgbigbrother/klondike.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bgbigbrother/klondike/issues"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://www.cardgamesplay.com/"
+  },
+  "keywords": [
+    "klondike",
+    "solitaire",
+    "card-game",
+    "patience",
+    "browser-game",
+    "typescript",
+    "vanilla-js",
+    "drag-and-drop",
+    "keyboard-accessible",
+    "i18n",
+    "web-audio",
+    "free-online-game",
+    "canvas-game",
+    "html5-game"
+  ],
   "type": "module",
   "main": "./src/index.ts",
   "module": "./dist/index.js",
@@ -30,6 +60,7 @@
     }
   },
   "publishConfig": {
+    "access": "public",
     "main": "./dist/index.js",
     "exports": {
       ".": {
@@ -56,13 +87,19 @@
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "LICENSE.md",
+    "README.md"
   ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -p tsconfig.build.json && vite build",
     "prepublishOnly": "npm run build",
     "test": "vitest --run"
+  },
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
   },
   "dependencies": {
     "@rse/soundlp": "^1.1.1",
