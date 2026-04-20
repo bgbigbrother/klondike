@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Klondike Solitaire — Standalone Dev</title>
+  </head>
+  <body>
+    <div class="dev-banner">⚙ Dev Mode — @cardgames/klondike standalone</div>
+    <header class="site-header">
+      <a class="site-header__brand" href="/">
+        <span class="site-header__name">Klondike Solitaire</span>
+      </a>
+      <div class="site-header__controls">
+        <button id="btn-music" class="site-header__btn" aria-label="Music">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><ellipse cx="8" cy="18" rx="3.5" ry="2.5" transform="rotate(-15 8 18)"/><rect x="11" y="6" width="1.5" height="12"/><path d="M 12.5 6 C 18 6, 20 12, 16 18 C 18 13, 16 9, 12.5 9 Z"/></svg>
+        </button>
+        <div class="lang-selector" id="lang-selector" role="navigation" aria-label="Language selection">
+          <button class="lang-selector__trigger" id="lang-selector-btn" aria-haspopup="listbox" aria-expanded="false">
+            <span class="lang-selector__flag" id="lang-flag">🇬🇧</span>
+            <span class="lang-selector__name" id="lang-name">English</span>
+          </button>
+          <ul class="lang-selector__dropdown" id="lang-dropdown" role="listbox" aria-label="Select language"></ul>
+        </div>
+      </div>
+    </header>
+
+    <main id="game-container">
+    <div id="app">
+      <header class="game-header">
+        <button id="btn-hamburger" class="hamburger-btn" aria-label="Menu" aria-expanded="false" aria-controls="hamburger-menu">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+
+        <div id="hamburger-menu" class="hamburger-menu hamburger-menu--hidden" role="menu">
+          <button id="hm-new-game" class="hamburger-menu__item" role="menuitem">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            <span data-i18n="btnNewGame">New Game</span>
+          </button>
+          <button id="hm-undo" class="hamburger-menu__item" role="menuitem">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>
+            <span data-i18n="btnUndo">Undo</span>
+          </button>
+          <button id="hm-auto-move" class="hamburger-menu__item" role="menuitem">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <span data-i18n="btnAutoMove">Auto Move</span>
+          </button>
+          <div class="hamburger-menu__divider"></div>
+          <div id="hm-lang-list"></div>
+        </div>
+
+        <div class="game-controls">
+          <button id="btn-new-game" title="New Game">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            <span class="btn-label" data-i18n="btnNewGame">New Game</span>
+          </button>
+          <button id="btn-undo" disabled title="Undo">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>
+            <span class="btn-label" data-i18n="btnUndo">Undo</span>
+          </button>
+          <button id="btn-auto-move" title="Auto Move">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <span class="btn-label" data-i18n="btnAutoMove">Auto Move</span>
+          </button>
+        </div>
+
+        <div class="game-stats">
+          <div class="stat-item">
+            <span class="stat-label" data-i18n="statTime">Time</span>
+            <span class="stat-value" id="time">0:00</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label" data-i18n="statMoves">Moves</span>
+            <span class="stat-value" id="moves">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label" data-i18n="statStock">Stock</span>
+            <span class="stat-value" id="stockpile">24</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label" data-i18n="statScore">Score</span>
+            <span class="stat-value" id="score">0</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="game-area">
+        <div class="top-row">
+          <div id="stock" class="pile pile--stock" title="Stock"></div>
+          <div id="waste" class="pile pile--waste" title="Waste"></div>
+          <div class="spacer"></div>
+          <div id="foundation-0" class="pile pile--foundation" data-index="0" title="Foundation 1"></div>
+          <div id="foundation-1" class="pile pile--foundation" data-index="1" title="Foundation 2"></div>
+          <div id="foundation-2" class="pile pile--foundation" data-index="2" title="Foundation 3"></div>
+          <div id="foundation-3" class="pile pile--foundation" data-index="3" title="Foundation 4"></div>
+        </div>
+
+        <div class="tableau-row">
+          <div id="tableau-0" class="pile pile--tableau" data-index="0"></div>
+          <div id="tableau-1" class="pile pile--tableau" data-index="1"></div>
+          <div id="tableau-2" class="pile pile--tableau" data-index="2"></div>
+          <div id="tableau-3" class="pile pile--tableau" data-index="3"></div>
+          <div id="tableau-4" class="pile pile--tableau" data-index="4"></div>
+          <div id="tableau-5" class="pile pile--tableau" data-index="5"></div>
+          <div id="tableau-6" class="pile pile--tableau" data-index="6"></div>
+        </div>
+      </div>
+
+      <footer class="game-toolbar" id="game-toolbar">
+        <div class="game-settings">
+          <div class="setting-item setting-item--stock">
+            <span class="setting-label">
+              <span data-i18n="settingStockPass">Stock Pass</span>
+            </span>
+            <div class="segmented" id="stock-pass-control" role="group" aria-label="Stock pass limit">
+              <button class="seg-btn seg-btn--active" data-value="0">∞</button>
+              <button class="seg-btn" data-value="1">1</button>
+              <button class="seg-btn" data-value="3">3</button>
+            </div>
+          </div>
+          <label class="setting-item setting-item--toggle">
+            <input type="checkbox" id="face-up-toggle" />
+            <span class="setting-label setting-label--face-up" data-i18n="settingFaceUp">Face Up</span>
+            <span class="toggle-track">
+              <span class="toggle-thumb"></span>
+            </span>
+          </label>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label" data-i18n="statPass">Pass</span>
+          <span class="stat-value" id="pass">∞</span>
+        </div>
+        <button id="btn-pause" class="toolbar-btn" title="Pause">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+        </button>
+        <button id="btn-fullscreen" class="toolbar-btn" title="Fullscreen">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        </button>
+      </footer>
+
+      <div id="pause-modal" class="overlay overlay--hidden">
+        <div class="pause-modal__content">
+          <div class="pause-modal__icon" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="5" y="3" width="4" height="18" rx="1"/>
+              <rect x="15" y="3" width="4" height="18" rx="1"/>
+            </svg>
+          </div>
+          <h2 class="pause-modal__title" data-i18n="pauseTitle">Game Paused</h2>
+          <p class="pause-modal__subtitle" data-i18n="pauseSubtitle">Take your time — your game is safe</p>
+          <button id="btn-continue" class="pause-modal__btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+            <span data-i18n="pauseResume">Resume</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="win-overlay" class="overlay overlay--hidden" role="dialog" aria-modal="true" aria-labelledby="win-title">
+        <div class="win-modal">
+          <div class="win-modal__confetti" aria-hidden="true">
+            <span class="confetti-piece"></span><span class="confetti-piece"></span>
+            <span class="confetti-piece"></span><span class="confetti-piece"></span>
+            <span class="confetti-piece"></span><span class="confetti-piece"></span>
+            <span class="confetti-piece"></span><span class="confetti-piece"></span>
+            <span class="confetti-piece"></span><span class="confetti-piece"></span>
+            <span class="confetti-piece"></span><span class="confetti-piece"></span>
+          </div>
+          <div class="win-modal__trophy" aria-hidden="true">🏆</div>
+          <h1 id="win-title" class="win-modal__title" data-i18n="winTitle">You Win!</h1>
+          <div class="win-modal__stats">
+            <div class="win-stat">
+              <span class="win-stat__label" data-i18n="winFinalScore">Score</span>
+              <span class="win-stat__value" id="win-score">0</span>
+            </div>
+            <div class="win-stat">
+              <span class="win-stat__label" data-i18n="winTime">Time</span>
+              <span class="win-stat__value" id="win-time">0:00</span>
+            </div>
+            <div class="win-stat">
+              <span class="win-stat__label" data-i18n="winMoves">Moves</span>
+              <span class="win-stat__value" id="win-moves">0</span>
+            </div>
+          </div>
+          <button id="btn-win-new-game" class="win-modal__btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            <span data-i18n="btnNewGame">New Game</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="autocomplete-prompt" class="autocomplete-prompt autocomplete-prompt--hidden">
+        <span data-i18n="autocompleteAvailable">Auto-complete available!</span>
+        <button id="btn-autocomplete" data-i18n="autocompleteButton">Auto Complete</button>
+      </div>
+    </div>
+
+    <script type="module" src="./dev-entry.ts"></script>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <span class="site-footer__copy">© <span id="footer-year"></span> Card Games Play</span>
+      </div>
+    </footer>
+  </body>
+</html>
